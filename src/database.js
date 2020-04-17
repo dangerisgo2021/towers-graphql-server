@@ -6,11 +6,15 @@ let _db;
 
 module.exports = {
   connectToServer: function (callback) {
-    // noinspection JSIgnoredPromiseFromCall
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, client) {
-      _db = client.db("heroku_6k5jt957");
-      return callback(err);
-    });
+    // noinspection JSIgnoredPromiseFromCall,JSCheckFunctionSignatures
+    MongoClient.connect(
+      url,
+      { useNewUrlParser: true, useUnifiedTopology: true },
+      function (err, client) {
+        _db = client.db("heroku_6k5jt957");
+        return callback(err);
+      }
+    );
   },
 
   getDb: function () {

@@ -1,8 +1,12 @@
-const {messagesTypeDef} = require("./App/messages/messagesTypeDef");
+const { profileTypeDef } = require("./App/profile/profileTypeDef");
+
+const { messagesTypeDef } = require("./App/messages/messagesTypeDef");
 const { gql } = require("apollo-server-express");
 
 // Construct a schema, using GraphQL schema language
 const rootTypeDef = gql`
+  scalar Date
+
   input Range {
     start: Int
     end: Int
@@ -27,4 +31,4 @@ const rootTypeDef = gql`
     subscription: Subscription
   }
 `;
-exports.typeDefs = [rootTypeDef, messagesTypeDef]
+exports.typeDefs = [rootTypeDef, messagesTypeDef, profileTypeDef];
