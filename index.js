@@ -32,6 +32,9 @@ connectToServer((err) => {
   const app = express();
   app.use(cors({ origin: true }));
   app.use(express.json());
+  app.get("/", (_, res) => {
+    res.redirect("/graphql");
+  });
   app.use("/publish", (req, res) => {
     const {
       body: { message: { messageId } = {}, subscription = "" } = {},
