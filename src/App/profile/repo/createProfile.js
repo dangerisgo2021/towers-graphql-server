@@ -1,3 +1,4 @@
+const { get } = require("lodash");
 const { getDb } = require("../../../database");
 
 exports.createProfile = async (profile) => {
@@ -5,5 +6,8 @@ exports.createProfile = async (profile) => {
   return getDb()
     .collection("profiles")
     .insertOne(profile)
+    .then((doc) => {
+      return get(doc, "ops[0]", null);
+    })
     .catch(console.error);
 };
