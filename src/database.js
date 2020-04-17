@@ -1,16 +1,15 @@
 const MongoClient = require("mongodb").MongoClient;
 const url =
-  "mongodb+srv://clark:a@cluster0-8b78v.gcp.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb://graphql-server:Towers123@ds117623.mlab.com:17623/heroku_6k5jt957";
 
-var _db;
+let _db;
 
 module.exports = {
   connectToServer: function (callback) {
-    callback();
-    // MongoClient.connect( url,  { useNewUrlParser: true }, function( err, client ) {
-    //   _db  = client.db('towers');
-    //   return callback( err );
-    // } );
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, client) {
+      _db = client.db("heroku_6k5jt957");
+      return callback(err);
+    });
   },
 
   getDb: function () {
