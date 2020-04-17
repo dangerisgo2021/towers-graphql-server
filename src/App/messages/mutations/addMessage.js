@@ -1,6 +1,3 @@
-const { addMessage } = require("../messagesService");
-const { messages } = require("../messages");
-exports.addMessage = async (parent, { text }) => {
-  messages.push(text);
-  return addMessage({ text });
-};
+const { addMessage } = require("../service/addMessage");
+
+exports.addMessage = async (parent, { text }) => addMessage({ text });

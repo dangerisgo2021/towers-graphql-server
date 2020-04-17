@@ -1,5 +1,5 @@
-const { insertMessage, findMessages } = require("./messagesRepo");
-const { publish } = require("../../PubSub");
+const { insertMessage } = require("../repo/insertMessage");
+const { publish } = require("../../../PubSub");
 
 exports.addMessage = async ({ text }) => {
   //validate message
@@ -16,5 +16,3 @@ exports.addMessage = async ({ text }) => {
   //return added message
   return newMessage;
 };
-
-exports.readMessages = async () => findMessages();

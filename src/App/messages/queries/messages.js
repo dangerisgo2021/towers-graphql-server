@@ -1,4 +1,4 @@
-const { readMessages } = require("../messagesService");
+const { readMessages } = require("../service/readMessages");
 exports.messages = () => {
   return readMessages();
 };
