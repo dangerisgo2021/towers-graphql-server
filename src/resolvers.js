@@ -3,6 +3,7 @@ const { GraphQLScalarType } = require("graphql");
 const { merge } = require("lodash");
 const { messagesResolver } = require("./App/messages/messagesResolver");
 const { profileResolver } = require("./App/profile/profileResolver");
+const { roomsResolver } = require("./App/rooms/roomsResolver");
 
 const messages = [];
 const rootResolver = {
@@ -34,4 +35,9 @@ const rootResolver = {
   }),
 };
 
-exports.resolvers = merge(rootResolver, messagesResolver, profileResolver);
+exports.resolvers = merge(
+  rootResolver,
+  messagesResolver,
+  profileResolver,
+  roomsResolver
+);

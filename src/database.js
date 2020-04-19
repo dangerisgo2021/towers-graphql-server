@@ -1,3 +1,4 @@
+const ObjectId = require('mongodb').ObjectID;
 const MongoClient = require("mongodb").MongoClient;
 const url =
   "mongodb://graphql-server:Towers123@ds117623.mlab.com:17623/heroku_6k5jt957";
@@ -20,4 +21,5 @@ module.exports = {
   getDb: function () {
     return _db;
   },
+  ObjectId,
 };

@@ -1,9 +1,11 @@
 const { profileTypeDef } = require("./App/profile/profileTypeDef");
 
 const { messagesTypeDef } = require("./App/messages/messagesTypeDef");
+const { roomsTypeDef } = require("./App/rooms/roomsTypeDef");
 const { gql } = require("apollo-server-express");
 
 // Construct a schema, using GraphQL schema language
+// All imported typeDefs extend the below rootType
 const rootTypeDef = gql`
   scalar Date
 
@@ -31,4 +33,5 @@ const rootTypeDef = gql`
     subscription: Subscription
   }
 `;
-exports.typeDefs = [rootTypeDef, messagesTypeDef, profileTypeDef];
+
+exports.typeDefs = [rootTypeDef, messagesTypeDef, profileTypeDef, roomsTypeDef];
