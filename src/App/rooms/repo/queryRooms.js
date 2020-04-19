@@ -1,7 +1,6 @@
 const { getDb } = require("../../../database");
 
 exports.queryRooms = async ({ search }) => {
-
   if (!search) {
     throw new Error("cannot execute falsy search");
   }
@@ -9,12 +8,8 @@ exports.queryRooms = async ({ search }) => {
   let query = {};
 
   //should make a mongodb query builder
-  if (search.started) {
-    query.started = search.started;
-  }
-
-  if (search.started) {
-    query.started = search.started;
+  if ({ ...search }.hasOwnProperty("started")) {
+    query.started = search.started || { $ne: true };
   }
 
   if (search.name) {
