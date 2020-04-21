@@ -4,6 +4,7 @@ exports.roomsTypeDef = gql`
   enum Mode {
     CASUAL
     RANKED
+    LOCAL
   }
 
   input CreateRoomInput {
