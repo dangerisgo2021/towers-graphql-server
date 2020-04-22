@@ -15,6 +15,9 @@ exports.queryRooms = async ({ search }) => {
   if (search.name) {
     query.name = { $regex: search.name };
   }
+  if (search.mode) {
+    query.mode = { $in: search.mode };
+  }
 
   const docs = await getDb()
     .collection("rooms")
