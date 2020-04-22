@@ -1,5 +1,6 @@
-const { insertRoom } = require("../repo/insertRoom");
 const { publish } = require("../../../PubSub");
+const { createMatch } = require("../../matches/service/createMatch");
+const { insertRoom } = require("../repo/insertRoom");
 
 exports.createRoom = async (createRoomInput) => {
   //validate createRoomInput
@@ -18,5 +19,13 @@ exports.createRoom = async (createRoomInput) => {
   //publish new Message to subscribers
   publish("newRoom", newRoom).catch(console.error);
   //return added message
+
+  //if local create match
+  if (mode === "LOCAL") {
+    await createMatch({
+      roomId: newRoom.id,
+    });
+  }
+
   return newRoom;
 };
