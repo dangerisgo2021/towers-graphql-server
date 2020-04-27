@@ -1,5 +1,4 @@
-const { profile } = require("./queries/profile");
-
+const { profile } = require("./resolvers/query/profile");
 
 exports.profileResolver = {
   Query: {

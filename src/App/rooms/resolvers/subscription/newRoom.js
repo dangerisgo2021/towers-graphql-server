@@ -1,4 +1,4 @@
-const { subscribe } = require("../../../PubSub");
+const { subscribe } = require("../../../../PubSub");
 
 exports.newRoom = {
   resolve: (room) => room,

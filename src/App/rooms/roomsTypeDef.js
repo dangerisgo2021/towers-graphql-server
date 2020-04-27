@@ -11,23 +11,19 @@ exports.roomsTypeDef = gql`
     name: String
     mode: Mode
   }
-
-  type Room {
-    id: ID
-    created: Date
-    gameId: ID
-    mode: Mode
-    minPlayers: Int
-    maxPlayers: Int
-    name: String
-    players: [ID]
-    started: Date
-    updated: Date
+  input AddPlayerToRoomInput {
+    roomId: ID
+    profileId: ID
   }
 
   type RoomNodes {
     nodeCount: Int
     nodes: [Room]
+  }
+
+  type Player {
+    profile: Profile
+    color: String
   }
 
   input RoomSearch {
@@ -41,6 +37,19 @@ exports.roomsTypeDef = gql`
     updated: Range
   }
 
+  type Room {
+    id: ID
+    created: Date
+    gameId: ID
+    mode: Mode
+    minPlayers: Int
+    maxPlayers: Int
+    name: String
+    players: [Player]
+    started: Date
+    updated: Date
+  }
+
   extend type Query {
     rooms(search: RoomSearch): RoomNodes
     room(id: ID): Room
@@ -48,6 +57,7 @@ exports.roomsTypeDef = gql`
 
   extend type Mutation {
     createRoom(createRoomInput: CreateRoomInput): Room
+    addPlayerToRoom(addPlayerToRoomInput: AddPlayerToRoomInput): Room
   }
   extend type Subscription {
     newRoom: Room

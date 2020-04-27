@@ -8,10 +8,11 @@ exports.profileTypeDef = gql`
     created: Date
     updated: Date
     rating: Int
+    name: String
   }
 
   extend type Query {
-    profile(agentId: ID): Profile
+    profile(agentId: ID, id: ID): Profile
   }
 
 `;

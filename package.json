@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "deploy": "gcloud app deploy",
-    "nodemon": "nodemon index.js"
+    "nodemon": "nodemon index.js",
+    "push": "npx apollo service:push --graph=towers --key=user:gh.dangerisgo2021:PFzVGR0fpaLsTholSmCm2w --endpoint=http://localhost:5000/graphql"
   },
   "keywords": [],
   "author": "",

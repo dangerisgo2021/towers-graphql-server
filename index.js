@@ -21,6 +21,10 @@ connectToServer((err) => {
     subscriptions,
     introspection: true,
     playground: true,
+    tracing: true,
+    engine: {
+      apiKey: "service:towers:oJ_qomdkb2wGOFfz7PuHKA",
+    },
     context: ({ req }) => {
       // get the user token from the headers
       const userId = get(req, "headers.userid", "no-user-id");
