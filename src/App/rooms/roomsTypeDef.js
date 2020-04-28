@@ -46,7 +46,8 @@ exports.roomsTypeDef = gql`
   type Room {
     id: ID
     created: Date
-    gameId: ID
+    matchId: ID
+    match: Match
     mode: Mode
     minPlayers: Int
     maxPlayers: Int
@@ -54,6 +55,8 @@ exports.roomsTypeDef = gql`
     players: [Player]
     started: Date
     updated: Date
+    matchConfigId: ID
+    matchConfig: MatchConfig
   }
 
   extend type Query {
@@ -65,6 +68,7 @@ exports.roomsTypeDef = gql`
     createRoom(input: CreateRoomInput): Room
     addPlayerToRoom(input: AddPlayerToRoomInput): Room
     removePlayerFromRoom(input: RemovePlayerFromRoomInput): Room
+    startMatch(roomId: ID): Room
   }
   extend type Subscription {
     newRoom: Room

@@ -1,9 +1,12 @@
 const { insertMatch } = require("../repo/insertMatch");
 
-exports.createMatch = async (createMatchInput) =>
-    insertMatch({
-      moves: [],
-      completed: false,
-      ...createMatchInput,
-      created: new Date().getTime(),
-    });
+exports.createMatch = async ({ roomId, matchConfigId }) =>
+  insertMatch({
+    roomId,
+    matchConfigId,
+    moves: [],
+    board: null,
+    winner: null,
+    started: false,
+    created: new Date().getTime(),
+  });

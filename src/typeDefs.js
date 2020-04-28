@@ -1,3 +1,6 @@
+const { matchesTypeDef } = require("./App/matches/matchesTypeDef");
+const { matchConfigTypeDef } = require("./App/matchConfig/matchConfigTypeDef");
+
 const { profileTypeDef } = require("./App/profile/profileTypeDef");
 
 const { messagesTypeDef } = require("./App/messages/messagesTypeDef");
@@ -34,4 +37,11 @@ const rootTypeDef = gql`
   }
 `;
 
-exports.typeDefs = [rootTypeDef, messagesTypeDef, profileTypeDef, roomsTypeDef];
+exports.typeDefs = [
+  rootTypeDef,
+  messagesTypeDef,
+  profileTypeDef,
+  roomsTypeDef,
+  matchesTypeDef,
+  matchConfigTypeDef,
+];

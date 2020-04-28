@@ -19,7 +19,7 @@ const rootResolver = {
   Subscription: {},
   Date: new GraphQLScalarType({
     name: "Date",
-    description: "Date custom scalar type",
+    description: "milliseconds since epoch",
     parseValue(value) {
       return value; // value from the client
     },
