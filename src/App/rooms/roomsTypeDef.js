@@ -11,7 +11,13 @@ exports.roomsTypeDef = gql`
     name: String
     mode: Mode
   }
+
   input AddPlayerToRoomInput {
+    roomId: ID
+    profileId: ID
+  }
+
+  input RemovePlayerFromRoomInput {
     roomId: ID
     profileId: ID
   }
@@ -56,10 +62,12 @@ exports.roomsTypeDef = gql`
   }
 
   extend type Mutation {
-    createRoom(createRoomInput: CreateRoomInput): Room
-    addPlayerToRoom(addPlayerToRoomInput: AddPlayerToRoomInput): Room
+    createRoom(input: CreateRoomInput): Room
+    addPlayerToRoom(input: AddPlayerToRoomInput): Room
+    removePlayerFromRoom(input: RemovePlayerFromRoomInput): Room
   }
   extend type Subscription {
     newRoom: Room
+    updatedRoom: ID
   }
 `;

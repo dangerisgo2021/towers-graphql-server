@@ -2,9 +2,9 @@ const { publish } = require("../../../PubSub");
 const { createMatch } = require("../../matches/service/createMatch");
 const { insertRoom } = require("../repo/insertRoom");
 
-exports.createRoom = async (createRoomInput) => {
+exports.createRoom = async (input) => {
   //validate createRoomInput
-  const { name, mode } = createRoomInput;
+  const { name, mode } = input;
   if (!name) {
     throw new Error("need name to create room");
   }
@@ -13,7 +13,7 @@ exports.createRoom = async (createRoomInput) => {
   }
   //add message to messages collection in db
   const newRoom = await insertRoom({
-    ...createRoomInput,
+    ...input,
     created: new Date().getTime(),
   });
   //publish new Message to subscribers

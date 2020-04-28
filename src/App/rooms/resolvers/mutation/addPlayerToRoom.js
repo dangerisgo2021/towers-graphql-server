@@ -1,5 +1,5 @@
 const { addPlayerToRoom } = require("../../service/addPlayerToRoom");
 
-exports.addPlayerToRoom = async (_, { addPlayerToRoomInput }) => {
-  return addPlayerToRoom(addPlayerToRoomInput);
+exports.addPlayerToRoom = async (_, { input }) => {
+  return addPlayerToRoom(input);
 };
