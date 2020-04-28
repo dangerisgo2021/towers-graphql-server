@@ -11,6 +11,6 @@ exports.removePlayerFromRoom = async (input) => {
     throw new Error("need profileId to addPlayerToRoom");
   }
   const updatedRoom = await removePlayer({ roomId, profileId });
-  publish("updatedRoom", { roomId }).catch(console.error);
+  publish("roomUpdated", { roomId }).catch(console.error);
   return updatedRoom;
 };

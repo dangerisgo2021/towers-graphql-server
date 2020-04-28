@@ -72,6 +72,6 @@ exports.roomsTypeDef = gql`
   }
   extend type Subscription {
     newRoom: Room
-    updatedRoom: ID
+    updatedRoom(roomId: ID): ID
   }
 `;

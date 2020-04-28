@@ -10,6 +10,6 @@ exports.addPlayerToRoom = async (input) => {
     throw new Error("need profileId to addPlayerToRoom");
   }
   const newRoom = await pushPlayer({ roomId, profileId });
-  publish("updatedRoom", { roomId }).catch(console.error);
+  publish("roomUpdated", { roomId }).catch(console.error);
   return newRoom;
 };

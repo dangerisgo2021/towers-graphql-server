@@ -9,6 +9,7 @@ const { createRoom } = require("./resolvers/mutation/createRoom");
 const { room } = require("./resolvers/query/room");
 const { rooms } = require("./resolvers/query/rooms");
 const { newRoom } = require("./resolvers/subscription/newRoom");
+const { updatedRoom } = require("./resolvers/subscription/updatedRoom");
 
 exports.roomsResolver = {
   Mutation: {
@@ -23,6 +24,7 @@ exports.roomsResolver = {
   },
   Subscription: {
     newRoom,
+    updatedRoom,
   },
   Player: {
     profile: profileById,

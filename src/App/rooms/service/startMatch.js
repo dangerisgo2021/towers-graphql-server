@@ -11,6 +11,6 @@ exports.startMatch = async (_, { roomId }) => {
     roomId,
     update: { started: Date.now(), matchId: match.id },
   });
-  publish("updatedRoom", { roomId }).catch(console.error);
+  publish("roomUpdated", { roomId }).catch(console.error);
   return newRoom;
 };
