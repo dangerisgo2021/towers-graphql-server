@@ -3,20 +3,24 @@ const { gql } = require("apollo-server-express");
 exports.matchConfigTypeDef = gql`
   type StartingCastleConfig {
     size: Int
-    x: Int
-    y: Int
+    location: Location
   }
 
   type StartingPlayerConfig {
     size: Int
     playerIndex: Int
-    x: Int
-    y: Int
+    location: Location
   }
 
   type BoardConfig {
     maxTowerHeight: Int
     width: Int
+    height: Int
+  }
+  
+  type VictoryConfig {
+    castlesToWin: Int
+    crownsToWin: Int
     height: Int
   }
 
@@ -25,10 +29,9 @@ exports.matchConfigTypeDef = gql`
     created: Date
     minPlayers: Int
     maxPlayers: Int
-    castlesToWin: Int
-    crownsToWin: Int
     startingPlayerConfig: [StartingPlayerConfig]
-    startingPlayerCastle: [StartingCastleConfig]
+    startingCastleConfig: [StartingCastleConfig]
     boardConfig: BoardConfig
+    victoryConfig: VictoryConfig
   }
 `;

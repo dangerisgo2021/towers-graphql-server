@@ -1,6 +1,7 @@
-const { startMatch } = require("./service/startMatch");
+const { startMatch } = require("./resolvers/mutation/startMatch");
 
 const { profileById } = require("../profile/resolvers/query/profileById");
+const { matchById } = require("../matches/resolvers/query/matchById");
 const { addPlayerToRoom } = require("./resolvers/mutation/addPlayerToRoom");
 const {
   removePlayerFromRoom,
@@ -28,5 +29,8 @@ exports.roomsResolver = {
   },
   Player: {
     profile: profileById,
+  },
+  Room: {
+    match: matchById,
   },
 };

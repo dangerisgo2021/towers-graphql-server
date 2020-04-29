@@ -1,16 +1,38 @@
+const { buildBoard } = require("../../matches/service/buildBoard");
+
 const { publish } = require("../../../PubSub");
 const { createMatch } = require("../../matches/service/createMatch");
+const {
+  findMatchConfigById,
+} = require("../../matchConfig/service/findMatchConfigById");
 const { updateRoom } = require("../repo/updateRoom");
 
-exports.startMatch = async (_, { roomId }) => {
+const defaultMatchConfig = "5ea9148af06102142b1601ef";
+
+exports.startMatch = async ({ roomId, matchConfigId = defaultMatchConfig }) => {
   if (!roomId) {
     throw new Error("need roomId to startMatch");
   }
-  const match = await createMatch({ roomId });
-  const newRoom = await updateRoom({
+
+  const matchConfig = await findMatchConfigById({ id: matchConfigId });
+  const board = buildBoard({ matchConfig });
+
+  const match = await createMatch({
     roomId,
-    update: { started: Date.now(), matchId: match.id },
+    board,
+    matchConfigId: matchConfig.id,
   });
+
+  const updatedRoom = await updateRoom({
+    roomId,
+    update: {
+      started: Date.now(),
+      matchId: match.id,
+      matchConfigId: matchConfig.id,
+    },
+  });
+
   publish("roomUpdated", { roomId }).catch(console.error);
-  return newRoom;
+
+  return updatedRoom;
 };

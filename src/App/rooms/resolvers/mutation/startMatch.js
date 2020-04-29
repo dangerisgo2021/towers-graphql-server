@@ -1,7 +1,3 @@
-const {
-  startMatch: startMatchService,
-} = require("../../service/startMatch");
+const { startMatch: startMatchService } = require("../../service/startMatch");
 
-exports.startMatch = async (_, { input }) => {
-  return startMatchService(input);
-};
+exports.startMatch = async (_, { roomId }) => startMatchService({ roomId });

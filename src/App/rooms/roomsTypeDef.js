@@ -46,11 +46,11 @@ exports.roomsTypeDef = gql`
   type Room {
     id: ID
     created: Date
-    matchId: ID
     match: Match
-    mode: Mode
+    matchId: ID
     minPlayers: Int
     maxPlayers: Int
+    mode: Mode
     name: String
     players: [Player]
     started: Date

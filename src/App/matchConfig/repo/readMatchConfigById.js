@@ -1,12 +1,12 @@
 const { getDb, ObjectId } = require("../../../database");
 
-exports.findById = async ({ id }) => {
+exports.readMatchConfigById = async ({ id }) => {
   if (!id) {
-    throw new Error("cannot find falsy id");
+    throw new Error("cannot readMatchConfigById with falsy id : " + id);
   }
 
   const doc = await getDb()
-    .collection("matchConfig")
+    .collection("matchConfigs")
     .findOne({ _id: ObjectId(id) })
     .catch(console.error);
 

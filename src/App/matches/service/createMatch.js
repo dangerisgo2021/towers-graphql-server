@@ -1,12 +1,12 @@
 const { insertMatch } = require("../repo/insertMatch");
 
-exports.createMatch = async ({ roomId, matchConfigId }) =>
+exports.createMatch = async ({ roomId, matchConfigId, board }) =>
   insertMatch({
     roomId,
     matchConfigId,
+    board,
     moves: [],
-    board: null,
     winner: null,
-    started: false,
+    started: false, // set to true on first move
     created: new Date().getTime(),
   });
