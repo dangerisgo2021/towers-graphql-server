@@ -20,11 +20,13 @@ exports.matchesTypeDef = gql`
     y: Int
   }
   type TowerPiece {
+    id: ID
     type: PieceType
     owner: ID
   }
 
   type Cell {
+    id: ID
     location: Location
     maxTowerSize: Int
     size: Int
