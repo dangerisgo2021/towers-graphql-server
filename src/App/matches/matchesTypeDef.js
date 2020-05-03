@@ -7,8 +7,8 @@ exports.matchesTypeDef = gql`
     PUSH_RIGHT
     PUSH_UP
     PUSH_DOWN
-    PUSH
   }
+  
   enum PieceType {
     EMPTY
     PLAYER
@@ -19,10 +19,11 @@ exports.matchesTypeDef = gql`
     x: Int
     y: Int
   }
+  
   type TowerPiece {
     id: ID
     type: PieceType
-    owner: ID
+    owner: Int
   }
 
   type Cell {
@@ -30,6 +31,7 @@ exports.matchesTypeDef = gql`
     location: Location
     maxTowerSize: Int
     size: Int
+    isCastle: Boolean
     towerPieces: [TowerPiece]
   }
 
@@ -40,9 +42,9 @@ exports.matchesTypeDef = gql`
   }
 
   type Move {
-    player: ID
-    location: Location
+    player: Int
     name: MoveName
+    selectedCell: Cell
   }
 
   type Match {
@@ -50,7 +52,6 @@ exports.matchesTypeDef = gql`
     created: Date
     updated: Date
     name: String
-    players: [ID]
     started: Date
     winner: Int
     matchConfigId: ID

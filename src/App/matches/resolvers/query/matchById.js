@@ -1,3 +1,6 @@
 const { findMatchById } = require("../../service/findMatchById");
 
-exports.matchById = ({ matchId }, { id }) =>findMatchById({ id: id || matchId });
+exports.matchById = (parent, args) => {
+  const id = args.id || parent.matchId;
+  return id && findMatchById({ id: id || matchId });
+};

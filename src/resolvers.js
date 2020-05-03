@@ -34,7 +34,6 @@ const rootResolver = {
     },
   }),
 };
-
 exports.resolvers = merge(
   rootResolver,
   messagesResolver,

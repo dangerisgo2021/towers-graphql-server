@@ -21,6 +21,14 @@ exports.roomsTypeDef = gql`
     roomId: ID
     profileId: ID
   }
+  
+  input ApplyMoveToMatchInput {
+    roomId: ID
+    matchId: ID
+    player: Int
+    cellId: ID
+    name: MoveName
+  }
 
   type RoomNodes {
     nodeCount: Int
@@ -69,6 +77,7 @@ exports.roomsTypeDef = gql`
     addPlayerToRoom(input: AddPlayerToRoomInput): Room
     removePlayerFromRoom(input: RemovePlayerFromRoomInput): Room
     startMatch(roomId: ID): Room
+    applyMoveToMatch(input: ApplyMoveToMatchInput): Room
   }
   extend type Subscription {
     newRoom: Room

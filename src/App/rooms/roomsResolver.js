@@ -1,5 +1,5 @@
+const { applyMoveToMatch } = require("./resolvers/mutation/applyMoveToMatch");
 const { startMatch } = require("./resolvers/mutation/startMatch");
-
 const { profileById } = require("../profile/resolvers/query/profileById");
 const { matchById } = require("../matches/resolvers/query/matchById");
 const { addPlayerToRoom } = require("./resolvers/mutation/addPlayerToRoom");
@@ -12,11 +12,12 @@ const { rooms } = require("./resolvers/query/rooms");
 const { newRoom } = require("./resolvers/subscription/newRoom");
 const { updatedRoom } = require("./resolvers/subscription/updatedRoom");
 
-exports.roomsResolver = {
+const roomsResolver = {
   Mutation: {
     createRoom,
     addPlayerToRoom,
     removePlayerFromRoom,
+    applyMoveToMatch,
     startMatch,
   },
   Query: {
@@ -34,3 +35,4 @@ exports.roomsResolver = {
     match: matchById,
   },
 };
+exports.roomsResolver = roomsResolver;
