@@ -1,3 +1,4 @@
+const { resetMatch } = require("./resolvers/mutation/resetMatch");
 const { applyMoveToMatch } = require("./resolvers/mutation/applyMoveToMatch");
 const { startMatch } = require("./resolvers/mutation/startMatch");
 const { profileById } = require("../profile/resolvers/query/profileById");
@@ -19,6 +20,7 @@ const roomsResolver = {
     removePlayerFromRoom,
     applyMoveToMatch,
     startMatch,
+    resetMatch,
   },
   Query: {
     room,

@@ -1,6 +1,6 @@
 const { getDb } = require("../../../database");
 
-exports.insertMatch = async (match) => {
+exports.createMatch = async (match) => {
   if (!match) {
     throw new Error("cannot insert falsy value");
   }

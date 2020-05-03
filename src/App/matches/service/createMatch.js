@@ -1,7 +1,7 @@
-const { insertMatch } = require("../repo/insertMatch");
+const { createMatch } = require("../repo/createMatch");
 
 exports.createMatch = async ({ roomId, matchConfigId, board }) =>
-  insertMatch({
+  createMatch({
     roomId,
     matchConfigId,
     board,

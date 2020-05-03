@@ -6,6 +6,12 @@ exports.roomsTypeDef = gql`
     RANKED
     LOCAL
   }
+  
+  enum RoomAction {
+    RESET
+    UNDO
+    REDO
+  }
 
   input CreateRoomInput {
     name: String
@@ -77,6 +83,7 @@ exports.roomsTypeDef = gql`
     addPlayerToRoom(input: AddPlayerToRoomInput): Room
     removePlayerFromRoom(input: RemovePlayerFromRoomInput): Room
     startMatch(roomId: ID): Room
+    resetMatch(roomId: ID): Room
     applyMoveToMatch(input: ApplyMoveToMatchInput): Room
   }
   extend type Subscription {
