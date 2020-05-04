@@ -1,11 +1,22 @@
 const { cloneDeep, isNil } = require("lodash");
 const { getCellByLocation } = require("./getCellByLocation");
 
+const emptyPiece = {
+  type: "EMPTY",
+};
 const moveNameToDirectionMap = {
   PUSH_UP: { xDir: 0, yDir: -1 },
   PUSH_LEFT: { xDir: -1, yDir: 0 },
   PUSH_RIGHT: { xDir: 1, yDir: 0 },
   PUSH_DOWN: { xDir: 0, yDir: 1 },
+};
+
+const addPieceToTower = ({ cell, piece }) => {
+  cell.towerPieces[cell.size].type = piece.type;
+  if (!isNil(piece.owner)) {
+    cell.towerPieces[cell.size].owner = piece.owner;
+  }
+  cell.size++;
 };
 
 exports.push = ({ board, move }) => {
@@ -19,6 +30,7 @@ exports.push = ({ board, move }) => {
 
   movingPieces.forEach((movingPiece, index) => {
     if (movingPiece.type !== "EMPTY") {
+      // the bottom piece does move even if next cell has a size of 0
       if (index === 0) {
         currentCell.towerPieces.forEach((piece, i) => {
           if (i === 0) {
@@ -39,19 +51,23 @@ exports.push = ({ board, move }) => {
           board: newBoard,
           location: { x: xN, y: yN },
         });
-        if (nextCell && currentCell.size >= nextCell.size) {
-          currentCell = nextCell;
-          nextCell.towerPieces[nextCell.size].type = movingPiece.type;
-          if (!isNil(movingPiece.owner)) {
-            nextCell.towerPieces[nextCell.size].owner = movingPiece.owner;
+        
+        if (nextCell) {
+          // when current cell is bigger then next cell place
+          // next piece is placed on  the next cell
+          // and empty pice is place in current
+          if (currentCell.size > nextCell.size) {
+            addPieceToTower({ cell: currentCell, piece: emptyPiece });
+            addPieceToTower({ cell: nextCell, piece: movingPiece });
+
+            currentCell = nextCell;
+          } else {
+            // else place the piece on current cell
+            addPieceToTower({ cell: currentCell, piece: movingPiece });
           }
-          nextCell.size++;
         } else {
-          currentCell.towerPieces[currentCell.size].type = movingPiece.type;
-          if (!isNil(movingPiece.owner)) {
-            nextCell.towerPieces[currentCell.size].owner = movingPiece.owner;
-          }
-          currentCell.size++;
+          //if no next cell place piece on current cell
+          addPieceToTower({ cell: currentCell, piece: movingPiece });
         }
       }
     }
