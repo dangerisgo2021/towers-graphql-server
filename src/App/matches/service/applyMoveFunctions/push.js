@@ -1,9 +1,6 @@
 const { cloneDeep, isNil } = require("lodash");
 const { getCellByLocation } = require("./getCellByLocation");
 
-const emptyPiece = {
-  type: "EMPTY",
-};
 const moveNameToDirectionMap = {
   PUSH_UP: { xDir: 0, yDir: -1 },
   PUSH_LEFT: { xDir: -1, yDir: 0 },
@@ -16,7 +13,9 @@ const addPieceToTower = ({ cell, piece }) => {
   if (!isNil(piece.owner)) {
     cell.towerPieces[cell.size].owner = piece.owner;
   }
-  cell.size++;
+  if (piece.type !== "EMPTY") {
+    cell.size++;
+  }
 };
 
 exports.push = ({ board, move }) => {
@@ -51,16 +50,13 @@ exports.push = ({ board, move }) => {
           board: newBoard,
           location: { x: xN, y: yN },
         });
-        
-        if (nextCell) {
-          // when current cell is bigger then next cell place
-          // next piece is placed on  the next cell
-          // and empty pice is place in current
-          if (currentCell.size > nextCell.size) {
-            addPieceToTower({ cell: currentCell, piece: emptyPiece });
-            addPieceToTower({ cell: nextCell, piece: movingPiece });
 
+        if (nextCell) {
+          // when current cell is >=  next cell size and we have a piece to move
+          // next piece is placed on  the next cell and empty peice is place in current
+          if (currentCell.size >= nextCell.size) {
             currentCell = nextCell;
+            addPieceToTower({ cell: nextCell, piece: movingPiece });
           } else {
             // else place the piece on current cell
             addPieceToTower({ cell: currentCell, piece: movingPiece });

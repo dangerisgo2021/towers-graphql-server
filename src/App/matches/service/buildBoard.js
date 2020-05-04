@@ -19,8 +19,14 @@ exports.buildBoard = ({ matchConfig }) => {
     .map(
       mapStartingPlayerPieces({ startingPlayerPieces: startingPlayerConfig })
     );
-
+  const castles = cells.reduce((acc, cell) => {
+    if (cell.isCastle) {
+      acc = [...acc, { cellId: cell.id }];
+    }
+    return acc;
+  }, []);
   return {
+    castles,
     cells,
     width,
     height,

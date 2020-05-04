@@ -8,7 +8,7 @@ const applyMoveToBoard = ({ board, move }) => {
   // noinspection FallThroughInSwitchStatementJS
   switch (move.name) {
     case "BUILD": {
-      return build({board, move});
+      return build({ board, move });
     }
     case "PUSH_UP":
     case "PUSH_DOWN":
@@ -32,15 +32,15 @@ exports.applyMove = async ({ matchId, move }) => {
   // board update with build or push move applied
   const newBoard = applyMoveToBoard({ board, move });
   const boardChanged = !isEqual(board, newBoard);
-  
-  if(!boardChanged) {
-    throw new Error("Invalid Move - Board Didnt change")
+
+  if (!boardChanged) {
+    throw new Error("Invalid Move - Board Didnt change");
   }
+
   //validate that board changed from move
   return updateMatchMove({
     matchId,
     moves: [...moves, move],
     board: newBoard,
   });
-
 };

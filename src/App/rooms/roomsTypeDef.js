@@ -71,6 +71,7 @@ exports.roomsTypeDef = gql`
     updated: Date
     matchConfigId: ID
     matchConfig: MatchConfig
+    currentPlayer: Int
   }
 
   extend type Query {
