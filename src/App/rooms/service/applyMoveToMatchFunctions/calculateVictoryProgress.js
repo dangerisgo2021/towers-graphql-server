@@ -10,30 +10,37 @@ exports.calculateVictoryProgress = ({ board, victoryConfig }) => {
     if (!isNil(controller)) {
       if (!acc[controller]) {
         acc[controller] = {
-          castlesControlled: 0,
-          castlesCrowned: 0,
+          player: controller,
+          castles: 0,
+          crowns: 0,
         };
       }
-      acc[controller].castlesControlled = acc[controller].castlesControlled + 1;
+      acc[controller].castles = acc[controller].castles + 1;
       if (castleCell.size === castleCell.maxTowerSize)
         acc[controller] = {
           ...acc[controller],
-          castlesCrowned: acc[controller].castlesCrowned + 1,
+          crowns: acc[controller].crowns + 1,
         };
     }
     return acc;
   }, {});
-
+  const playerToVictoryProgressEntries = Object.entries(playerToScoreMap);
   // winner is the key of the first winning entry.
+  console.log({ victoryConfig });
   const [winner = null] =
-    Object.entries(playerToScoreMap).find(
-      ([_, { castlesControlled, castlesCrowned }]) =>
-        castlesControlled >= victoryConfig.castlesToWin ||
-        castlesCrowned >= victoryConfig.crownsToWin
+    playerToVictoryProgressEntries.find(
+      ([_, { castles, crowns }]) =>
+        castles >= victoryConfig.castlesToWin ||
+        crowns >= victoryConfig.crownsToWin
     ) || [];
+  console.log({ winner });
 
+  const playerProgress = playerToVictoryProgressEntries.map(([key, value]) => ({
+    player: key,
+    ...value,
+  }));
   return {
-    ...playerToScoreMap,
+    playerProgress,
     winner,
   };
 };

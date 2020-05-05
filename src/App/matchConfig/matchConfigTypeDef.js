@@ -21,7 +21,6 @@ exports.matchConfigTypeDef = gql`
   type VictoryConfig {
     castlesToWin: Int
     crownsToWin: Int
-    height: Int
   }
 
   type MatchConfig {

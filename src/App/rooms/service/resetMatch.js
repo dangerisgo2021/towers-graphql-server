@@ -29,6 +29,9 @@ exports.resetMatch = async ({ roomId, matchConfigId = defaultMatchConfig }) => {
     roomId,
     update: {
       currentPlayer: 0,
+      victoryProgress: {
+        winner: null,
+      },
     },
   });
 

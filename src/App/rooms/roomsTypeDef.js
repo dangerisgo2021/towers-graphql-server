@@ -6,7 +6,7 @@ exports.roomsTypeDef = gql`
     RANKED
     LOCAL
   }
-  
+
   enum RoomAction {
     RESET
     UNDO
@@ -27,7 +27,7 @@ exports.roomsTypeDef = gql`
     roomId: ID
     profileId: ID
   }
-  
+
   input ApplyMoveToMatchInput {
     roomId: ID
     matchId: ID
@@ -41,6 +41,17 @@ exports.roomsTypeDef = gql`
     nodes: [Room]
   }
 
+  type PlayerProgress {
+    player: Int
+    castles: Int
+    crowns: Int
+  }
+
+  type VictoryProgress {
+    winner: Int
+    playerProgress: [PlayerProgress]
+  }
+  
   type Player {
     profile: Profile
     color: String
@@ -72,6 +83,7 @@ exports.roomsTypeDef = gql`
     matchConfigId: ID
     matchConfig: MatchConfig
     currentPlayer: Int
+    victoryProgress: VictoryProgress
   }
 
   extend type Query {
@@ -87,6 +99,7 @@ exports.roomsTypeDef = gql`
     resetMatch(roomId: ID): Room
     applyMoveToMatch(input: ApplyMoveToMatchInput): Room
   }
+  
   extend type Subscription {
     newRoom: Room
     updatedRoom(roomId: ID): ID

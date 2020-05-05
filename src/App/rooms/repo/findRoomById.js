@@ -9,5 +9,6 @@ exports.findRoomById = async ({ id }) => {
     .collection("rooms")
     .findOne({ _id: new ObjectId(id) })
     .catch(console.error);
+
   return doc ? { ...doc, id: doc._id } : null;
 };

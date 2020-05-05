@@ -26,6 +26,7 @@ exports.applyMoveToMatch = async ({ roomId, move }) => {
   const nextCurrentPlayer = room.currentPlayer === 0 ? 1 : 0; // switch between player index 0 and 1
 
   const updatedMatch = await applyMove({ matchId: room.matchId, move });
+  
   const { victoryConfig } = await findMatchConfigById({
     id: updatedMatch.matchConfigId,
   });
