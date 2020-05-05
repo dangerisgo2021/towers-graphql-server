@@ -22,11 +22,10 @@ exports.applyMoveToMatch = async ({ roomId, move }) => {
 
   const room = await findRoomById({ id: roomId });
 
-
   const nextCurrentPlayer = room.currentPlayer === 0 ? 1 : 0; // switch between player index 0 and 1
 
   const updatedMatch = await applyMove({ matchId: room.matchId, move });
-  
+
   const { victoryConfig } = await findMatchConfigById({
     id: updatedMatch.matchConfigId,
   });
@@ -35,14 +34,14 @@ exports.applyMoveToMatch = async ({ roomId, move }) => {
     victoryConfig,
   });
 
-  const updatedRoom = await updateRoom({
+  await updateRoom({
     roomId,
     update: {
       currentPlayer: nextCurrentPlayer,
-      victoryProgress
+      victoryProgress,
     },
   });
 
-  publish("roomUpdated", updatedRoom).catch(console.error);
+  publish("roomUpdated", { roomId }).catch(console.error);
   return room;
 };
