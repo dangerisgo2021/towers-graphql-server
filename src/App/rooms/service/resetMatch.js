@@ -1,3 +1,4 @@
+const { updateRoom } = require("../repo/updateRoom");
 const { buildBoard } = require("../../matches/service/buildBoard");
 const { publish } = require("../../../PubSub");
 const { resetMatch } = require("../../matches/service/resetMatch");
@@ -22,6 +23,13 @@ exports.resetMatch = async ({ roomId, matchConfigId = defaultMatchConfig }) => {
     board,
     id: room.matchId,
     matchConfigId: matchConfig.id,
+  });
+
+  await updateRoom({
+    roomId,
+    update: {
+      currentPlayer: 0,
+    },
   });
 
   publish("roomUpdated", { roomId }).catch(console.error);
