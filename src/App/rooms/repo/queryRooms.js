@@ -22,6 +22,7 @@ exports.queryRooms = async ({ search }) => {
   const docs = await getDb()
     .collection("rooms")
     .find(query)
+    .sort({ created: -1 })
     .toArray()
     .catch(console.error);
 
