@@ -1,7 +1,7 @@
 const ObjectId = require('mongodb').ObjectID;
 const MongoClient = require("mongodb").MongoClient;
 const url =
-  "mongodb://graphql-server:Towers123@ds117623.mlab.com:17623/heroku_6k5jt957";
+  "mongodb+srv://towers:zwcY4uMOUczknaix@cluster0.scpoy.mongodb.net/towers?retryWrites=true&w=majority";
 
 let _db;
 
