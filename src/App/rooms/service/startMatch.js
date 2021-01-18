@@ -7,7 +7,7 @@ const {
 } = require("../../matchConfig/service/findMatchConfigById");
 const { updateRoom } = require("../repo/updateRoom");
 
-const defaultMatchConfig = "5ea9148af06102142b1601ef";
+const defaultMatchConfig = "6005cb3900a3d9ec224efd08";
 
 exports.startMatch = async ({ roomId, matchConfigId = defaultMatchConfig }) => {
   if (!roomId) {
