@@ -1,15 +1,22 @@
 const { publish } = require("../../../PubSub");
 const { pushPlayer } = require("../repo/pushPlayer");
+const {
+  findByUserIdOrCreateProfile,
+} = require("../../profile/service/findByUserIdOrCreateProfile.js");
 
 exports.addPlayerToRoom = async (input) => {
-  const { roomId, profileId } = input;
+  const { roomId, userId } = input;
+  console.log({ roomId, userId, input });
+  
   if (!roomId) {
     throw new Error("need roomId to addPlayerToRoom");
   }
-  if (!profileId) {
-    throw new Error("need profileId to addPlayerToRoom");
+  if (!userId) {
+    throw new Error("need userId to addPlayerToRoom");
   }
-  const newRoom = await pushPlayer({ roomId, profileId });
+
+  const { _id: profileId } = await findByUserIdOrCreateProfile({ userId });
+  const newRoom = await pushPlayer({ roomId, userId, profileId });
   publish("roomUpdated", { roomId }).catch(console.error);
   return newRoom;
 };

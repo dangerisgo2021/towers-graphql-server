@@ -1,6 +1,6 @@
 const { getDb, ObjectId } = require("../../../database");
 
-exports.pushPlayer = async ({ roomId, profileId }) => {
+exports.pushPlayer = async ({ roomId, userId, profileId }) => {
   if (!roomId) {
     throw new Error("cannot addPlayer to room without roomId");
   }
@@ -9,7 +9,7 @@ exports.pushPlayer = async ({ roomId, profileId }) => {
     .collection("rooms")
     .findOneAndUpdate(
       { _id: ObjectId(roomId) },
-      { $addToSet: { players: { profileId } } },
+      { $addToSet: { players: { userId, profileId } } },
       { returnOriginal: false }
     )
     .catch(console.error);

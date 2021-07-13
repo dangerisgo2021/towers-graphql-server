@@ -20,7 +20,6 @@ exports.roomsTypeDef = gql`
 
   input AddPlayerToRoomInput {
     roomId: ID
-    profileId: ID
   }
 
   input RemovePlayerFromRoomInput {

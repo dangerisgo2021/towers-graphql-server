@@ -1,6 +1,6 @@
 const {
-  findByAgentIdOrCreateProfile,
-} = require("../../service/findByAgentIdOrCreateProfile");
+  findByUserIdOrCreateProfile,
+} = require("../../service/findByUserIdOrCreateProfile");
 exports.profile = (parent, args) => {
-  return findByAgentIdOrCreateProfile({ agentId: args.agentId });
+  return findByUserIdOrCreateProfile({ userId: args.userId });
 };

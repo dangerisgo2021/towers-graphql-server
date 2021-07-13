@@ -1,13 +1,14 @@
+const { findByUserId } = require("../../profile/service/findByUserId.js");
 const { getDb, ObjectId } = require("../../../database");
 
-exports.removePlayer = async ({ roomId, profileId }) => {
+exports.removePlayer = async ({ roomId, userId }) => {
   if (!roomId) {
     throw new Error("cannot removePlayer to room without roomId");
   }
-  if (!profileId) {
+  if (!userId) {
     throw new Error("cannot removePlayer to room without profileId");
   }
-
+  const { _id: profileId } = await findByUserId({ userId });
   const { value } = await getDb()
     .collection("rooms")
     .findOneAndUpdate(

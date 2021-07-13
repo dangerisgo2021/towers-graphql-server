@@ -2,15 +2,15 @@ const { publish } = require("../../../PubSub");
 const { removePlayer } = require("../repo/removePlayer");
 
 exports.removePlayerFromRoom = async (input) => {
-  const { roomId, profileId } = input;
+  const { roomId, userId } = input;
   
   if (!roomId) {
-    throw new Error("need roomId to addPlayerToRoom");
+    throw new Error("need roomId to removePlayerFromRoom");
   }
-  if (!profileId) {
-    throw new Error("need profileId to addPlayerToRoom");
+  if (!userId) {
+    throw new Error("need userId to removePlayerFromRoom");
   }
-  const updatedRoom = await removePlayer({ roomId, profileId });
+  const updatedRoom = await removePlayer({ roomId, userId });
   publish("roomUpdated", { roomId }).catch(console.error);
   return updatedRoom;
 };
