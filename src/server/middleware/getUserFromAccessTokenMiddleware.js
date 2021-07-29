@@ -7,9 +7,10 @@ exports.getUserFromAccessTokenMiddleware = async (req, res, next) => {
   if (authorization) {
     try {
       const db = await getDb();
-      const { userId } = await db
-        .collection("sessions")
-        .findOne({ accessToken: authorization });
+      const { userId } =
+        (await db
+          .collection("sessions")
+          .findOne({ accessToken: authorization })) ?? {};
 
       req.user = userId;
       console.log("received userId", userId);

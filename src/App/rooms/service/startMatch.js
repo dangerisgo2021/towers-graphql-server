@@ -26,7 +26,8 @@ exports.startMatch = async ({ roomId, matchConfigId = defaultMatchConfig }) => {
   const updatedRoom = await updateRoom({
     roomId,
     update: {
-      started: Date.now(),
+      started: true,
+      startDate: Date.now(),
       matchId: match.id,
       currentPlayer: 0,
       matchConfigId: matchConfig.id,

@@ -16,7 +16,12 @@ const rootTypeDef = gql`
     start: Int
     end: Int
   }
-
+  
+  type Location {
+      x: Int
+      y: Int
+  }
+  
   type Query {
     _empty: String
     ping: String
