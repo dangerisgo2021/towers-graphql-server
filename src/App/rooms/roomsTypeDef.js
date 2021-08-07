@@ -73,7 +73,7 @@ exports.roomsTypeDef = gql`
     minPlayers: Range
     maxPlayers: Range
     name: String
-    players: [String]
+    players: [ID]
     started: Boolean
     updated: Range
   }
