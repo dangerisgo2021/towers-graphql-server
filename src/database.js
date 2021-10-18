@@ -1,3 +1,4 @@
+const mongodb = require("mongodb");
 const ObjectId = require("mongodb").ObjectID;
 const MongoClient = require("mongodb").MongoClient;
 const url =
@@ -12,7 +13,7 @@ module.exports = {
       return { client: cachedClient, db: cachedDb };
     }
     // noinspection JSIgnoredPromiseFromCall,JSCheckFunctionSignatures
-    MongoClient.connect(
+    mongodb.MongoClient.connect(
       url,
       { useNewUrlParser: true, useUnifiedTopology: true },
       function (err, client) {
