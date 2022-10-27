@@ -14,11 +14,6 @@ exports.matchesTypeDef = gql`
     PLAYER
     CASTLE
   }
-
-  type Location {
-    x: Int
-    y: Int
-  }
   
   type TowerPiece {
     id: ID

@@ -1,25 +1,31 @@
-const ObjectId = require('mongodb').ObjectID;
+const mongodb = require("mongodb");
+const ObjectId = require("mongodb").ObjectID;
 const MongoClient = require("mongodb").MongoClient;
 const url =
-  "mongodb://graphql-server:Towers123@ds117623.mlab.com:17623/heroku_6k5jt957";
+  "mongodb+srv://towers:gBwcbRYhpWD111Vy@cluster0.scpoy.mongodb.net/towers?retryWrites=true&w=majority";
 
-let _db;
+let cachedClient = null;
+let cachedDb = null;
 
 module.exports = {
   connectToServer: function (callback) {
+    if (cachedClient && cachedDb) {
+      return { client: cachedClient, db: cachedDb };
+    }
     // noinspection JSIgnoredPromiseFromCall,JSCheckFunctionSignatures
-    MongoClient.connect(
+    mongodb.MongoClient.connect(
       url,
       { useNewUrlParser: true, useUnifiedTopology: true },
       function (err, client) {
-        _db = client.db("heroku_6k5jt957");
+        cachedClient = client;
+        cachedDb = client.db("towers");
         return callback(err);
       }
     );
   },
 
   getDb: function () {
-    return _db;
+    return cachedDb;
   },
   ObjectId,
 };

@@ -2,7 +2,7 @@ const { getDb, ObjectId } = require("../../../database");
 
 exports.findById = async ({ id }) => {
   if (!id) {
-    throw new Error("cannot find falsy id");
+    throw new Error("cannot find profile with falsy id");
   }
 
   const doc = await getDb()

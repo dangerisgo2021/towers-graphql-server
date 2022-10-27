@@ -3,7 +3,7 @@ const { gql } = require("apollo-server-express");
 exports.profileTypeDef = gql`
   type Profile {
     id: ID
-    agentId: ID
+    userId: ID
     birthday: Date
     created: Date
     updated: Date
@@ -12,7 +12,7 @@ exports.profileTypeDef = gql`
   }
 
   extend type Query {
-    profile(agentId: ID, id: ID): Profile
+    profile(userId: ID, id: ID): Profile
   }
 
 `;

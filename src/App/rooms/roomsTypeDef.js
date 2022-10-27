@@ -20,7 +20,6 @@ exports.roomsTypeDef = gql`
 
   input AddPlayerToRoomInput {
     roomId: ID
-    profileId: ID
   }
 
   input RemovePlayerFromRoomInput {
@@ -34,6 +33,12 @@ exports.roomsTypeDef = gql`
     player: Int
     cellId: ID
     name: MoveName
+  }
+
+  input SetSelectedCellInput {
+    roomId: ID
+    player: Int
+    cellId: ID
   }
 
   type RoomNodes {
@@ -51,7 +56,12 @@ exports.roomsTypeDef = gql`
     winner: Int
     playerProgress: [PlayerProgress]
   }
-  
+
+  type SelectedCell {
+    player: Int
+    cellId: ID
+  }
+
   type Player {
     profile: Profile
     color: String
@@ -63,7 +73,7 @@ exports.roomsTypeDef = gql`
     minPlayers: Range
     maxPlayers: Range
     name: String
-    players: [String]
+    players: [ID]
     started: Boolean
     updated: Range
   }
@@ -84,6 +94,7 @@ exports.roomsTypeDef = gql`
     matchConfig: MatchConfig
     currentPlayer: Int
     victoryProgress: VictoryProgress
+    selectedCells: [SelectedCell]
   }
 
   extend type Query {
@@ -98,8 +109,9 @@ exports.roomsTypeDef = gql`
     startMatch(roomId: ID): Room
     resetMatch(roomId: ID): Room
     applyMoveToMatch(input: ApplyMoveToMatchInput): Room
+    setSelectedCell(input: SetSelectedCellInput): Room
   }
-  
+
   extend type Subscription {
     newRoom: Room
     updatedRoom(roomId: ID): ID

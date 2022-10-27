@@ -1,13 +1,13 @@
 const { getDb } = require("../../../database");
 
-exports.findProfileByAgentId = async ({ agentId }) => {
-  if (!agentId) {
-    throw new Error("cannot find falsy agentId");
+exports.findByUserId = async ({ userId }) => {
+  if (!userId) {
+    throw new Error("cannot find falsy userId");
   }
 
   const doc = await getDb()
     .collection("profiles")
-    .findOne({ agentId })
+    .findOne({ userId })
     .catch(console.error);
   return doc ? { ...doc, id: doc._id } : null;
 };

@@ -1,8 +1,15 @@
 const cors = require("cors");
 const express = require("express");
 const http = require("http");
-const { publish } = require("./src/PubSub");
-const { last, get } = require("lodash");
+const {
+  publishMiddleware,
+} = require("./src/server/middleware/publishMiddleware.js");
+const {
+  graphqlLoggerMiddleware,
+} = require("./src/server/middleware/graphqlLoggerMiddleware.js");
+const {
+  getUserFromAccessTokenMiddleware,
+} = require("./src/server/middleware/getUserFromAccessTokenMiddleware.js");
 
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs } = require("./src/typeDefs");
@@ -26,43 +33,22 @@ connectToServer((err) => {
       apiKey: "service:towers:oJ_qomdkb2wGOFfz7PuHKA",
     },
     context: ({ req }) => {
-      // get the user token from the headers
-      const userId = get(req, "headers.userid", "no-user-id");
-      // add the user to the context
-      return { userId };
+      if (!req) {
+        return { websocket: true };
+      }
+      // noinspection JSUnresolvedVariable
+      return { user: req.user, headers: req.headers };
     },
   });
 
   const app = express();
   app.use(cors({ origin: true }));
   app.use(express.json());
-  app.use("/graphql", (req, res, next) => {
-    if (req && req.body && req.body.operationName === "IntrospectionQuery") {
-      console.log("IntrospectionQuery");
-    } else {
-      console.log(JSON.stringify(req.body));
-    }
-    next();
-  });
-  app.get("/", (_, res) => {
-    res.redirect("/graphql");
-  });
-  
-  // for when / if there are external messages that need to be published
-  // app.use("/publish", (req, res) => {
-  //   const {
-  //     body: { message: { messageId } = {}, subscription = "" } = {},
-  //   } = req;
-  //   console.log(
-  //     "/publish received",
-  //     JSON.stringify({ body: req.body, messageId })
-  //   );
-  //
-  //   const channel = last(subscription.split("/"));
-  //   publish(channel, { messageId }).catch(console.error);
-  //   console.log("published", JSON.stringify({ channel, messageId }));
-  //   res.status(204).send();
-  // });
+
+  app.use(getUserFromAccessTokenMiddleware);
+
+  app.use("/graphql", graphqlLoggerMiddleware);
+  app.use("/publish", publishMiddleware);
 
   server.applyMiddleware({ app });
 

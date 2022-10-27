@@ -3,9 +3,17 @@ const { getDb, ObjectId } = require("../../../database");
 
 exports.updateRoom = async ({
   roomId,
-  update: { started, gameConfig, matchId, currentPlayer, victoryProgress },
+  update: {
+    started,
+    gameConfig,
+    matchId,
+    currentPlayer,
+    victoryProgress,
+    selectedCells,
+  },
 }) => {
   const update = {};
+
   if (!isNil(started)) {
     update.started = started;
   }
@@ -21,6 +29,10 @@ exports.updateRoom = async ({
   if (victoryProgress) {
     update.victoryProgress = victoryProgress;
   }
+  if (selectedCells) {
+    update.selectedCells = selectedCells;
+  }
+
   const { value } = await getDb()
     .collection("rooms")
     .findOneAndUpdate(
