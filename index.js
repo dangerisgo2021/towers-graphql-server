@@ -47,20 +47,22 @@ connectToServer((err) => {
   app.get("/", (_, res) => {
     res.redirect("/graphql");
   });
-  app.use("/publish", (req, res) => {
-    const {
-      body: { message: { messageId } = {}, subscription = "" } = {},
-    } = req;
-    console.log(
-      "/publish received",
-      JSON.stringify({ body: req.body, messageId })
-    );
-
-    const channel = last(subscription.split("/"));
-    publish(channel, { messageId }).catch(console.error);
-    console.log("published", JSON.stringify({ channel, messageId }));
-    res.status(204).send();
-  });
+  
+  // for when / if there are external messages that need to be published
+  // app.use("/publish", (req, res) => {
+  //   const {
+  //     body: { message: { messageId } = {}, subscription = "" } = {},
+  //   } = req;
+  //   console.log(
+  //     "/publish received",
+  //     JSON.stringify({ body: req.body, messageId })
+  //   );
+  //
+  //   const channel = last(subscription.split("/"));
+  //   publish(channel, { messageId }).catch(console.error);
+  //   console.log("published", JSON.stringify({ channel, messageId }));
+  //   res.status(204).send();
+  // });
 
   server.applyMiddleware({ app });
 

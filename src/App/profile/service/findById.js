@@ -1,3 +1,3 @@
 const { findById } = require("../repo/findById");
 
-exports.findById = async ({ id }) => await findById({ id });
+exports.findById = ({ id }) => findById({ id });

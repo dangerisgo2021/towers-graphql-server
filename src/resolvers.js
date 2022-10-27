@@ -1,3 +1,7 @@
+const {
+  domainsResolverMap,
+} = require("./Domains/interfaces/graphql/domainsResolverMap");
+
 const { GraphQLScalarType } = require("graphql");
 
 const { merge } = require("lodash");
@@ -38,5 +42,6 @@ exports.resolvers = merge(
   rootResolver,
   messagesResolver,
   profileResolver,
-  roomsResolver
+  roomsResolver,
+  domainsResolverMap
 );
